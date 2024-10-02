@@ -2,9 +2,9 @@
 DOCKER_USERNAME = ismailkhandokar
 
 # fronend variables
-FRONTEND_IMAGE_NAME = custom-fronend
+FRONTEND_IMAGE_NAME = custom-frontend
 FRONTEND_TAG = latest
-BACKEND_IMAGE_NAME = custom-backend 
+BACKEND_IMAGE_NAME = custom-backends
 BACKEND_TAG = latest 
 
 
@@ -12,7 +12,7 @@ BACKEND_TAG = latest
 
 # build the docker image for frontend
 build-frontend:
-	docker build -t $(FRONTEND_IMAGE_NAME) ./fronend
+	docker build -t $(FRONTEND_IMAGE_NAME) ./frontend
 
 # tag the docker image for frontend
 tag-frontend:
@@ -34,6 +34,7 @@ build-backend:
 tag-backend:
 	docker tag $(BACKEND_IMAGE_NAME):$(BACKEND_TAG) $(DOCKER_USERNAME)/$(BACKEND_IMAGE_NAME)
 
+
 #PUSH THE Dcoker image for the backend
 push-backend:
 	docker push $(DOCKER_USERNAME)/$(BACKEND_IMAGE_NAME):$(BACKEND_TAG)
@@ -42,7 +43,7 @@ push-backend:
 all-backend: build-backend tag-backend push-backend
 
 #run all for both frontend and backend
-all: all-fronend all-backend
+all: all-frontend all-backend
 
 .PHONY: build-frontend tag-frontend push-frontend all-frontend clean-frontend \
 		build-backend tag-backend push-backend all-backend clean-backend
